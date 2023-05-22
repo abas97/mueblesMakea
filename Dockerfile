@@ -27,6 +27,9 @@ COPY prisma/ ./prisma/
 # Compilar la aplicación
 RUN nest build
 
+RUN npx prisma generate
+RUN npx prisma migrate deploy
+
 # Exponer el puerto en el que se ejecutará la aplicación
 EXPOSE 3000
 
