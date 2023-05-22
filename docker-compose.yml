@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  dev-db:
+    image: postgres:13
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: makea
+    networks:
+      - freecodecamp
+  test-db:
+    image: postgres:13
+    ports:
+      -   :5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: makea
+    networks:
+      - freecodecamp
+  app:
+    image: nestjs-docker:local
+    container_name: nestjs-docker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    networks:
+      - freecodecamp
+networks:
+  freecodecamp:
